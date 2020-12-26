@@ -59,7 +59,7 @@ void mostrarGrafo(grafo *g){
 grafo *rellenarGrafo(){
     FILE *fptr;
     int v = 0;
-    fptr = fopen("matriz.in", "r");  
+    fptr = fopen("entrada.in", "r");  
     fscanf(fptr, "%i", &v);
     grafo *g = crearGrafo(v);
     int i,j;
