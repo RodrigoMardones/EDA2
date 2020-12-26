@@ -7,7 +7,7 @@ typedef struct Nodo {
 } nodo;
 
 typedef struct ListNodo {
-    struct Nodo *cabeza;
+    nodo *cabeza;
 } listNodo;
 
 typedef struct Grafo {
@@ -85,14 +85,14 @@ int min(int a, int b){
     return a;
 }
 
-void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, int *pc, int *low, grafo *g, int *tiempo){
+void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, int *pc, int *menor, grafo *g, int *tiempo){
     
     nodo *adj = g->array[u].cabeza;
 
     int hijos = 0;
     visitados[u] = 1;
     descubiertos[u] = *tiempo;
-    low[u] = *tiempo;
+    menor[u] = *tiempo;
     *tiempo+=1;
     
     while(adj){
@@ -101,17 +101,17 @@ void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, in
     
             padre[v] = u;
             hijos+=1;
-            criticoProfundidad(v, visitados, descubiertos, padre, pc, low, g, tiempo);
+            criticoProfundidad(v, visitados, descubiertos, padre, pc, menor, g, tiempo);
             
-            low[u] = min(low[u], low[v]);
+            menor[u] = min(menor[u], menor[v]);
             
-            if((padre[u] == -1 && hijos > 1) || (padre[u] != -1 && low[v] >= descubiertos[u])){
+            if((padre[u] == -1 && hijos > 1) || (padre[u] != -1 && menor[v] >= descubiertos[u])){
                 pc[u] = 1;
             }
         }
         else{
             if(v != padre[u]){
-                low[u] = min(low[u], descubiertos[v]);
+                menor[u] = min(menor[u], descubiertos[v]);
             }
         }
         adj = adj->next;
@@ -122,11 +122,11 @@ void puntoCritico(grafo *g){
     
     // se inicializan todos los elementos a usar
    
-    int tiempo, *visitados, *descubiertos, *low, *padre, *pc;
+    int tiempo, *visitados, *descubiertos, *menor, *padre, *pc;
     tiempo = 0;
     visitados = (int*)malloc(g->v * sizeof(int));
     descubiertos = (int*)malloc(g->v * sizeof(int));
-    low = (int*)malloc(g->v * sizeof(int));
+    menor = (int*)malloc(g->v * sizeof(int));
     padre = (int*)malloc(g->v * sizeof(int));
     pc = (int*)malloc(g->v * sizeof(int));
     
@@ -139,7 +139,7 @@ void puntoCritico(grafo *g){
 
     for(int j = 0;j < g->v;j++){
         if(visitados[j] == 0){
-            criticoProfundidad(j, visitados, descubiertos, padre, pc, low, g, &tiempo);        
+            criticoProfundidad(j, visitados, descubiertos, padre, pc, menor, g, &tiempo);        
         }
     }
     
@@ -151,7 +151,7 @@ void puntoCritico(grafo *g){
     // liberacion de memoria
     free(visitados);
     free(descubiertos);
-    free(low);
+    free(menor);
     free(padre);
     free(pc);
 }

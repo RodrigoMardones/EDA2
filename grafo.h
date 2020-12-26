@@ -39,11 +39,11 @@ void mostrarGrafo(grafo *g);
  * @param visitados[v]  lista que almacena los vertices visitados por cantidad 
  * @param descubiertos[v]  lista que almacenas los vertices descubiertos de un vertice en especifico
  * @param padre[v]  lista que contiene los vertices padre de un arbol de busqueda profunda
- * @param bajo[v]  lista que contiene la conexion entre los subarboles generados con v dentro son parte de los ancestro de u
+ * @param menor[v]  lista que contiene la conexion entre los subarboles generados con v dentro son parte de los ancestro de u
  * @param *g  grafo donde se hace la busqueda 
  * @param *tiempo cantidad de veces que se repite un elemento en la busqueda
 */
-void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, int *pc, int *low, grafo *g, int *tiempo);
+void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, int *pc, int *menor, grafo *g, int *tiempo);
 
 /**
  * description funcion que ejecuta "crititoProfundidad" en toda la lista de adyacencia de un grafo
