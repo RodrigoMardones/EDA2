@@ -105,10 +105,7 @@ void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, in
             
             low[u] = min(low[u], low[v]);
             
-            if(padre[u] == -1 && hijos > 1){
-                pc[u] = 1;
-            }
-            if(padre[u] != -1 && low[v] >= descubiertos[u]){
+            if((padre[u] == -1 && hijos > 1) || (padre[u] != -1 && low[v] >= descubiertos[u])){
                 pc[u] = 1;
             }
         }
