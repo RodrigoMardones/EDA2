@@ -1,9 +1,11 @@
 #include "stdio.h"
-#include "grafo.c"
+#include "grafo.h"
 
 int main(){
     
-    
+    /* 
+
+    // EJEMPLOS 
     grafo *g3 = crearGrafo(5);
     printf("primero \n");
     agregarArista(g3, 1, 0);
@@ -29,10 +31,9 @@ int main(){
     agregarArista(g2, 3, 5);
     agregarArista(g2, 4, 5);
     puntoCritico(g2);
-    printf("cuarto \n");
+    printf("cuarto \n"); */
     grafo *g1 = rellenarGrafo();
     puntoCritico(g1);
     printf("--------------------- \n");
-    // printf("Hello world... from c again \n");
     return 0;
 }

@@ -43,7 +43,6 @@ void agregarArista(grafo *g, int fuente, int destino){
     g->array[destino].cabeza = nuevoNodo;
 };
 
-
 void mostrarGrafo(grafo *g){
     int v = g->v;
     for(int i = 0; i<v ; i++){
@@ -84,7 +83,7 @@ int min(int a, int b){
         return b;
     }
     return a;
-};
+}
 
 void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, int *pc, int *low, grafo *g, int *tiempo){
     
@@ -105,7 +104,6 @@ void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, in
             criticoProfundidad(v, visitados, descubiertos, padre, pc, low, g, tiempo);
             
             low[u] = min(low[u], low[v]);
-            // printf("valor más bajo de  %d \n", low[u]);
             
             if(padre[u] == -1 && hijos > 1){
                 pc[u] = 1;
@@ -153,7 +151,12 @@ void puntoCritico(grafo *g){
             printf("nodo critico: %d \n", k + 1);
         }
     }
+    // liberacion de memoria
+    free(visitados);
+    free(descubiertos);
+    free(low);
+    free(padre);
+    free(pc);
 }
-
 
 
