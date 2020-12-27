@@ -2,8 +2,8 @@
 #include "stdlib.h"
 
 typedef struct Nodo {
-    int destination;
-    struct Nodo *next;
+    int destino;
+    struct Nodo *siguiente;
 } nodo;
 
 typedef struct ListNodo {
@@ -17,8 +17,8 @@ typedef struct Grafo {
 
 nodo* crearNodo(int destino){
     nodo* n = malloc(sizeof(nodo));
-    n->destination = destino;
-    n->next = NULL;
+    n->destino = destino;
+    n->siguiente = NULL;
     return n;
 }
 
@@ -34,12 +34,12 @@ grafo* crearGrafo(int v){
 
 void agregarArista(grafo *g, int fuente, int destino){
     nodo *nuevoNodo = crearNodo(destino);
-    nuevoNodo->next = g->array[fuente].cabeza;
+    nuevoNodo->siguiente = g->array[fuente].cabeza;
     g->array[fuente].cabeza = nuevoNodo;
 
     //como es indirecto apuntamos uno hacia el mismo
     nuevoNodo = crearNodo(fuente); 
-    nuevoNodo->next = g->array[destino].cabeza; 
+    nuevoNodo->siguiente = g->array[destino].cabeza; 
     g->array[destino].cabeza = nuevoNodo;
 };
 
@@ -49,8 +49,8 @@ void mostrarGrafo(grafo *g){
         nodo *actualNodo = g->array[i].cabeza;
         printf("lista de adjacencia de nodo %d ", i + 1);
         while(actualNodo){
-            printf("-> %d ", actualNodo->destination + 1);
-            actualNodo = actualNodo->next;
+            printf("-> %d ", actualNodo->destino + 1);
+            actualNodo = actualNodo->siguiente;
         }
         printf("\n");
     }
@@ -96,7 +96,7 @@ void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, in
     *tiempo+=1;
     
     while(adj){
-        int v = adj->destination;
+        int v = adj->destino;
         if(!visitados[v]){
     
             padre[v] = u;
@@ -114,7 +114,7 @@ void criticoProfundidad(int u, int *visitados, int *descubiertos, int *padre, in
                 menor[u] = min(menor[u], descubiertos[v]);
             }
         }
-        adj = adj->next;
+        adj = adj->siguiente;
     }
 }
 
